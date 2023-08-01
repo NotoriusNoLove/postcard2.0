@@ -4,6 +4,8 @@ from datetime import date, timedelta
 
 def create_table() -> None:
     cur.execute("""
+        SET DATESTYLE = 'iso, dmy';
+                
         CREATE TABLE IF NOT EXISTS people (
         name VARCHAR(255),
         group_id VARCHAR(50),
