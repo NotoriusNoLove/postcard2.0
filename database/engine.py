@@ -1,11 +1,11 @@
 import psycopg2.extras
-
+from config import *
 
 conn = psycopg2.connect(
-    dbname="postgres",
-    user="postgres",
-    password="1234",
-    host='127.0.0.1',
-    port='5432'
+    dbname=DB_NAME,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    host=HOST,
+    port=PORT
 )
 cur = conn.cursor()

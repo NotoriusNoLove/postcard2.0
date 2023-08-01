@@ -51,7 +51,7 @@ def insert_users() -> None:
     cur.execute("SELECT * FROM people")
     result = cur.fetchall()
     if len(result) == 0:
-        with open(r"storage\core\bir.csv", "r", encoding="utf-8") as df:
+        with open("storage/core/bir.csv", "r", encoding="utf-8") as df:
             cur.copy_from(df, "people", sep=';')
         conn.commit()
 
