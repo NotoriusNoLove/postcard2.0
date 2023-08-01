@@ -11,6 +11,7 @@ from datetime import datetime
 
 
 async def main():
+    print("start")
     create_table()
     insert_users()
     register_handlers()
