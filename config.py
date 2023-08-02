@@ -11,6 +11,7 @@ DB_NAME = os.getenv('DBNAME')
 HOST = os.getenv('HOST')
 PORT = os.getenv('PORT')
 GPT = os.getenv('GPT_TOKEN')
+CUR_DIR = os.getenv("CUR_DIR")
 
 
 __all__ = ['TOKEN', 'DB_USER', 'DB_PASSWORD',

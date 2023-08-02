@@ -6,6 +6,8 @@ from PIL import Image, ImageDraw, ImageFont
 from os import listdir
 from os.path import isfile, join
 
+from config import CUR_DIR
+
 
 def calculate_font_size(text: str, font_path: str, column_width: int) -> int:
     font_size = 1
@@ -22,16 +24,16 @@ def calculate_font_size(text: str, font_path: str, column_width: int) -> int:
 def draw_image(text_img: str, shad: str) -> str:
 
     # take list all files of a directory
-    only_files = [f for f in listdir('storage/image') if isfile(
-        join('storage/image', f))]
+    only_files = [f for f in listdir(f'{CUR_DIR}/storage/image') if isfile(
+        join(f'{CUR_DIR}/storage/image', f))]
 
-    front = 'storage/core/pixelfont_7.ttf'
+    front = f'{CUR_DIR}/storage/core/pixelfont_7.ttf'
     image = Image.open(
-        'storage/core/only_text.png')
+        f'{CUR_DIR}/storage/core/only_text.png')
     font = ImageFont.truetype(
         front, calculate_font_size(text_img, front, 1000))
     inserted_image = Image.open(
-        f"storage/image/{random.choice(only_files)}")
+        f"{CUR_DIR}/storage/image/{random.choice(only_files)}")
 
     width, height = image.size
     text_bbox = ImageDraw.Draw(image).textbbox((0, 0), text_img, font=font)
@@ -59,6 +61,6 @@ def draw_image(text_img: str, shad: str) -> str:
         front, calculate_font_size(text_img, front, 1000)//2)
     draw.text((text_x+350, text_y+150), shad, fill=(255, 255, 255), font=font)
 
-    result_path = f'storage/temp/image_{text_img}.jpg'
+    result_path = f'{CUR_DIR}/storage/temp/image_{text_img}.jpg'
     image.save(result_path)
     return result_path

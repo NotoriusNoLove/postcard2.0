@@ -11,7 +11,6 @@ from datetime import datetime
 
 
 async def main():
-    print("start")
     create_table()
     insert_users()
     register_handlers()
@@ -19,9 +18,10 @@ async def main():
     dp.startup.register(send_postcard)
     # scheduler = AsyncIOScheduler(timezone='Europe/Moscow')
     # scheduler.add_job(
-    #     start_postcards, trigger='cron', hour=1, minute=13, start_date=datetime.now()
+    #     start_postcards, trigger='cron', hour=10, minute=0, start_date=datetime.now()
     # )
     # scheduler.start()
+
     try:
         await dp.start_polling(bot)
     finally:

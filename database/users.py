@@ -1,5 +1,6 @@
 from .engine import *
 from datetime import date, timedelta
+from config import CUR_DIR
 
 
 def create_table() -> None:
@@ -53,7 +54,7 @@ def insert_users() -> None:
     cur.execute("SELECT * FROM people")
     result = cur.fetchall()
     if len(result) == 0:
-        with open("storage/core/bir.csv", "r", encoding="utf-8") as df:
+        with open(f"{CUR_DIR}/storage/core/bir.csv", "r", encoding="utf-8") as df:
             cur.copy_from(df, "people", sep=';')
         conn.commit()
 
