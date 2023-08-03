@@ -45,5 +45,7 @@ async def send_postcard():
             # chat_id=get_chat_id(item[1]),
             chat_id='-1001951834621',
             photo=FSInputFile(item[-2]),
-            caption=item[3]
+            caption=create_message(
+                stage="basic", name=item[1], group_id=item[2], text_birth=item[3], send_date=datetime.now().strftime('%m-%d')
+            )
         )

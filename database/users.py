@@ -79,7 +79,9 @@ def get_users_birthday() -> list:
 def get_user_submit_true():
     cur.execute(f"""
     SELECT * FROM TASKS
-    WHERE TO_CHAR(send_date, 'MM-DD') = '{(date.today()).strftime('%m-%d')}';
+    WHERE 
+        TO_CHAR(send_date, 'MM-DD') = '{(date.today()).strftime('%m-%d')}' 
+        and submit = true;
     """)
     result = cur.fetchall()
     return result
