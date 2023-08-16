@@ -13,7 +13,7 @@ from aiohttp.web_app import Application
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
 
-async def main():
+def main():
     dp.startup.register(on_startup)
     dp.shutdown.register(on_shutdown)
     create_table()
@@ -28,11 +28,16 @@ async def main():
     scheduler.start()
 
     dp['base_url'] = "notmeowmeow.ru"
+    app = Application()
+    app["bot"] = bot
 
-    try:
-        await dp.start_polling(bot)
-    finally:
-        await bot.session.close()
+    SimpleRequestHandler(
+        dispatcher=dp,
+        bot=bot,
+    ).register(app, path="/bot/postcards")
+    setup_application(app, dp, bot=bot)
+
+    run_app(app, host="127.0.0.1", port=8003)
 
 
 async def on_startup():
@@ -44,7 +49,4 @@ async def on_shutdown():
     await bot.delete_webhook(drop_pending_updates=True)
 
 if __name__ == '__main__':
-    try:
-        asyncio.run(main())
-    except (KeyboardInterrupt, SystemExit):
-        print('Bot stopped')
+    main()
