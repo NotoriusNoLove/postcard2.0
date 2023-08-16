@@ -14,12 +14,12 @@ from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_applicati
 
 
 async def main():
+    dp.startup.register(on_startup)
+    dp.shutdown.register(on_shutdown)
     create_table()
     insert_users()
     register_handlers()
     dp.include_router(form_router)
-    dp.shutdown.register(on_shutdown)
-    dp.startup.register(on_startup)
     # dp.startup.register(send_postcard)
     scheduler = AsyncIOScheduler(timezone='Europe/Moscow')
     scheduler.add_job(
