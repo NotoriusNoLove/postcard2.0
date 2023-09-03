@@ -39,13 +39,21 @@ async def create_task():
 async def send_postcard():
     if (users := get_user_submit_true()) == 0:
         return
+
     for item in users:
-        print(item[1])
-        await bot.send_photo(
-            # chat_id=get_chat_id(item[1]),
-            chat_id='-1001951834621',
-            photo=FSInputFile(item[-2]),
-            caption=create_message(
-                stage="basic", name=item[1], group_id=item[2], text_birth=item[3], send_date=datetime.now().strftime('%m-%d')
+        chat_id = get_chat_id(item[1])
+
+        if chat_id is None:
+            await bot.send_message(
+                chat_id="-1001951834621",
+                text="ID беседы не было найдено в базе данных."
             )
-        )
+        else:
+            await bot.send_photo(
+                chat_id=chat_id,
+                # chat_id='-1001951834621',
+                photo=FSInputFile(item[-2]),
+                caption=create_message(
+                    stage="basic", name=item[1], group_id=item[2], text_birth=item[3], send_date=datetime.now().strftime('%m-%d')
+                )
+            )
